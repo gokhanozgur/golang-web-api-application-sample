@@ -1,0 +1,26 @@
+[
+    {
+        "ID": 1,
+        "Username": "gokhanozgur",
+        "FirstName":"Gökhan",
+        "LastName":"Özgür",
+        "Interest":"PHP, Laravel, Lumen, C#, GO, .Net Core, Microservice Architecture",
+        "Profile": "http://www.example.com/gokhanozgur"
+    },
+    {
+        "ID": 2,
+        "Username": "aliyazar",
+        "FirstName":"Ali",
+        "Lastname":"Yazar",
+        "Interest":"Microservice Architecture",
+        "Profile": "http://www.example.com/aliyazar"
+    },
+    {
+        "ID": 3,
+        "Username": "velibozar",
+        "FirstName":"Veli",
+        "LastName":"Bozar",
+        "Interest":"PHP, Lumen",
+        "Profile": "http://www.example.com/velibozar"
+    }
+]

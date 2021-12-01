@@ -1,0 +1,30 @@
+[
+    {
+        "ID": 1,
+        "Name": "C#"
+    },
+    {
+        "ID": 2,
+        "Name": "GO"
+    },
+    {
+        "ID": 3,
+        "Name": "PHP"
+    },
+    {
+        "ID": 4,
+        "Name": "Laravel"
+    },
+    {
+        "ID": 5,
+        "Name": "Lumen"
+    },
+    {
+        "ID": 6,
+        "Name": ".Net Core"
+    },
+    {
+        "ID": 7,
+        "Name": "Microservice Architecture"
+    }
+]
