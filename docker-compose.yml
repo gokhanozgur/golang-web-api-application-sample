@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD : "password"
+      MYSQL_USER: gogo
+      MYSQL_PASSWORD: 12345
+      MYSQL_DATABASE: golang
+    container_name: go-apis
+    command:
+      - --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'select 1' |mysql -uroot -pdbrootpass --silent"]
+      interval: 30s
+      timeout: 20s
+      retries: 6
+    ports:
+      - 3306:3306
+  pma:
+    image: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: "password"
+    ports:
+      - 9002:80
+

@@ -13,8 +13,11 @@ import (
 	"golang_web_api_application_sample/pkg/repository/user"
 	service "golang_web_api_application_sample/pkg/service/user"
 
+	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	"github.com/spf13/viper"
 )
 
 type App struct {
@@ -26,6 +29,19 @@ func main() {
 
 	// Application declaring
 	app := App{}
+
+	// Initialize Application
+
+	// Get environment variable with viper package
+	viper.SetConfigFile(".env")
+	viper.ReadInConfig()
+
+	app.initialize(
+		viper.GetString("APP_DB_HOST"),
+		viper.GetString("APP_DB_PORT"),
+		viper.GetString("APP_DB_USERNAME"),
+		viper.GetString("APP_DB_PASSWORD"),
+		viper.GetString("APP_DB_NAME"))
 
 	// Initialize routes
 	app.routes()
@@ -42,10 +58,15 @@ func main() {
 // App Initializer
 func (app *App) initialize(host, port, username, password, dbname string) {
 
-	connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, username, password, dbname)
+	// Posgres connection string
+	//connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, username, password, dbname)
+
+	// MySQL Connection string
+	connectionString := fmt.Sprintf("%s:%s@/%s", username, password, dbname)
 
 	var err error
 	app.DB, err = gorm.Open("mysql", connectionString)
+
 	if err != nil {
 		log.Fatal(err)
 	}
