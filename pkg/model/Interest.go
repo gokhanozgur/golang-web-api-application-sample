@@ -1,13 +1,13 @@
 package model
 
 type Interest struct {
-	ID   uint64 `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
 // UserDTO
 type InterestDTO struct {
-	ID   uint64 `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 

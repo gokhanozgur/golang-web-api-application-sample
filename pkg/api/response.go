@@ -13,14 +13,14 @@ type ErrorResponseDTO struct {
 }
 
 // RespondWithError ...
-func RespondWithError(w http.ResponseWriter, code int, message string) {
-	RespondWithJSON(w, code, ErrorResponseDTO{Code: code, Status: "Error", Message: message})
+func RespondWithError(rw http.ResponseWriter, code int, message string) {
+	RespondWithJSON(rw, code, ErrorResponseDTO{Code: code, Status: "Error", Message: message})
 }
 
 // RespondWithJSON write json
-func RespondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+func RespondWithJSON(rw http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(code)
-	w.Write(response)
+	rw.Header().Set("Content-Type", "application/json")
+	rw.WriteHeader(code)
+	rw.Write(response)
 }

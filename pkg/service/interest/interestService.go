@@ -12,7 +12,7 @@ type InterestService struct {
 
 // InterestService Constructor
 func NewInterestService(i *interest.Repository) InterestService {
-	return InterestService{InterestRespository: u}
+	return InterestService{InterestRespository: i}
 }
 
 // Get All Service
@@ -21,7 +21,7 @@ func (i *InterestService) All() ([]model.Interest, error) {
 }
 
 // FindByID
-func (i *InterestService) FindByID(id uint64) (*model.Interest, error) {
+func (i *InterestService) FindByID(id uint) (*model.Interest, error) {
 	return i.InterestRespository.FindByID(id)
 }
 
@@ -31,7 +31,7 @@ func (i *InterestService) Save(interest *model.Interest) (*model.Interest, error
 }
 
 // Delete
-func (i *InterestService) Delete(id uint64) error {
+func (i *InterestService) Delete(id uint) error {
 	return i.InterestRespository.Delete(id)
 }
 

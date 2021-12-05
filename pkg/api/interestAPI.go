@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"golang_web_api_application_sample/pkg/model"
-	service "golang_web_api_application_sample/pkg/service/user"
+	service "golang_web_api_application_sample/pkg/service/interest"
 	"log"
 	"net/http"
 	"strconv"
@@ -11,29 +11,29 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type UserAPI struct {
-	UserService service.UserService
+type InterestAPI struct {
+	InterestService service.InterestService
 }
 
-// UserAPI constructor
-func NewUserAPI(u service.UserService) UserAPI {
-	return UserAPI{UserService: u}
+// InterestAPI constructor
+func NewInterestAPI(i service.InterestService) InterestAPI {
+	return InterestAPI{InterestService: i}
 }
 
-// Get all user
-func (u UserAPI) GetAllUser() http.HandlerFunc {
+// Get all interest
+func (i InterestAPI) GetAllInterest() http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
-		users, err := u.UserService.All()
+		interests, err := i.InterestService.All()
 		if err != nil {
 			RespondWithError(rw, http.StatusNotFound, err.Error())
 			return
 		}
-		RespondWithJSON(rw, http.StatusOK, users)
+		RespondWithJSON(rw, http.StatusOK, interests)
 	}
 }
 
-// Find user by id
-func (u UserAPI) FindUserByID() http.HandlerFunc {
+// Find interest by id
+func (i InterestAPI) FindInterestByID() http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, err := strconv.Atoi(vars["id"])
@@ -41,39 +41,39 @@ func (u UserAPI) FindUserByID() http.HandlerFunc {
 			RespondWithError(rw, http.StatusNotFound, err.Error())
 			return
 		}
-		user, err := u.UserService.FindByID(uint64(id))
+		interest, err := i.InterestService.FindByID(uint(id))
 		if err != nil {
 			RespondWithError(rw, http.StatusNotFound, err.Error())
 			return
 		}
-		RespondWithJSON(rw, http.StatusOK, user)
+		RespondWithJSON(rw, http.StatusOK, interest)
 	}
 }
 
-// Create a user
-func (u UserAPI) CreateUser() http.HandlerFunc {
+// Create a interest
+func (i InterestAPI) CreateInterest() http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
-		var userDTO model.UserDTO
+		var interestDTO model.InterestDTO
 
 		decoder := json.NewDecoder(r.Body)
 		defer r.Body.Close()
-		if err := decoder.Decode(&userDTO); err != nil {
+		if err := decoder.Decode(&interestDTO); err != nil {
 			RespondWithError(rw, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		createUser, err := u.UserService.Save(model.ToUser(&userDTO))
+		createInterest, err := i.InterestService.Save(model.ToInterest(&interestDTO))
 		if err != nil {
 			RespondWithError(rw, http.StatusInternalServerError, err.Error())
 			return
 		}
 
-		RespondWithJSON(rw, http.StatusCreated, createUser)
+		RespondWithJSON(rw, http.StatusCreated, createInterest)
 	}
 }
 
-// Update a user
-func (u UserAPI) UpdateUser() http.HandlerFunc {
+// Update a interest
+func (i InterestAPI) UpdateInterest() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, err := strconv.Atoi(vars["id"])
@@ -82,37 +82,33 @@ func (u UserAPI) UpdateUser() http.HandlerFunc {
 			return
 		}
 
-		var userDTO model.UserDTO
+		var interestDTO model.InterestDTO
 		decoder := json.NewDecoder(r.Body)
 		defer r.Body.Close()
-		if err := decoder.Decode(&userDTO); err != nil {
+		if err := decoder.Decode(&interestDTO); err != nil {
 			RespondWithError(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		user, err := u.UserService.FindByID(uint64(id))
+		interest, err := i.InterestService.FindByID(uint(id))
 		if err != nil {
 			RespondWithError(w, http.StatusNotFound, err.Error())
 			return
 		}
 
-		user.FirstName = userDTO.FirstName
-		user.LastName = userDTO.LastName
-		user.Username = userDTO.Username
-		user.Profile = userDTO.Profile
-		//user.Interests = user.Interests
-		updateduser, err := u.UserService.Save(user)
+		interest.Name = interestDTO.Name
+		updatedInterest, err := i.InterestService.Save(interest)
 		if err != nil {
 			RespondWithError(w, http.StatusInternalServerError, err.Error())
 			return
 		}
 
-		RespondWithJSON(w, http.StatusOK, model.ToUserDTO(updateduser))
+		RespondWithJSON(w, http.StatusOK, model.ToInterestDTO(updatedInterest))
 	}
 }
 
-// Hard delete a user
-func (u UserAPI) DeleteUser() http.HandlerFunc {
+// Hard delete a interest
+func (i InterestAPI) DeleteInterest() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, err := strconv.Atoi(vars["id"])
@@ -121,13 +117,13 @@ func (u UserAPI) DeleteUser() http.HandlerFunc {
 			return
 		}
 
-		user, err := u.UserService.FindByID(uint64(id))
+		interest, err := i.InterestService.FindByID(uint(id))
 		if err != nil {
 			RespondWithError(w, http.StatusNotFound, err.Error())
 			return
 		}
 
-		err = u.UserService.Delete(user.ID)
+		err = i.InterestService.Delete(interest.ID)
 		if err != nil {
 			RespondWithError(w, http.StatusNotFound, err.Error())
 			return
@@ -145,8 +141,8 @@ func (u UserAPI) DeleteUser() http.HandlerFunc {
 }
 
 // Migration
-func (u UserAPI) Migrate() {
-	err := u.UserService.Migrate()
+func (i InterestAPI) Migrate() {
+	err := i.InterestService.Migrate()
 	if err != nil {
 		log.Println(err)
 	}

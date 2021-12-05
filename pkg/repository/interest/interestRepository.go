@@ -25,7 +25,7 @@ func (u *Repository) All() ([]model.Interest, error) {
 }
 
 // FindByID
-func (u *Repository) FindByID(id uint64) (*model.Interest, error) {
+func (u *Repository) FindByID(id uint) (*model.Interest, error) {
 	interest := new(model.Interest)
 	err := u.db.Where(`id = ?`, id).First(&interest).Error
 	return interest, err
@@ -38,7 +38,7 @@ func (u *Repository) Save(interest *model.Interest) (*model.Interest, error) {
 }
 
 // Delete
-func (u *Repository) Delete(id uint64) error {
+func (u *Repository) Delete(id uint) error {
 	err := u.db.Delete(&model.Interest{}).Error
 	return err
 }

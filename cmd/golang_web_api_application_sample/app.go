@@ -10,8 +10,12 @@ import (
 
 	"golang_web_api_application_sample/pkg/api"
 	model "golang_web_api_application_sample/pkg/model"
+	"golang_web_api_application_sample/pkg/repository/interest"
 	"golang_web_api_application_sample/pkg/repository/user"
-	service "golang_web_api_application_sample/pkg/service/user"
+	userInterestRepository "golang_web_api_application_sample/pkg/repository/user_interest"
+	interestService "golang_web_api_application_sample/pkg/service/interest"
+	userService "golang_web_api_application_sample/pkg/service/user"
+	userInterestService "golang_web_api_application_sample/pkg/service/user_interest"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -83,22 +87,55 @@ func (app *App) run(address string) {
 // Routes
 func (app *App) routes() {
 
-	// User API's
+	// User API`s
 	userAPI := InitializeUserAPI(app.DB)
 	app.Router.HandleFunc("/users", userAPI.GetAllUser()).Methods("GET")
 	app.Router.HandleFunc("/users/create", userAPI.CreateUser()).Methods("POST")
 	app.Router.HandleFunc("/users/{id:[0-9]+}", userAPI.FindUserByID()).Methods("GET")
-	app.Router.HandleFunc("/users/{id:[0-9]+}", userAPI.UpdateUser()).Methods("PUT")
+	app.Router.HandleFunc("/users/update/{id:[0-9]+}", userAPI.UpdateUser()).Methods("PUT")
 	app.Router.HandleFunc("/users/delete/{id:[0-9]+}", userAPI.DeleteUser()).Methods("DELETE")
+
+	// Interest API`s
+	interestAPI := InitializeInterestAPI(app.DB)
+	app.Router.HandleFunc("/interests", interestAPI.GetAllInterest()).Methods("GET")
+	app.Router.HandleFunc("/interest/create", interestAPI.CreateInterest()).Methods("POST")
+	app.Router.HandleFunc("/interest/{id:[0-9]+}", interestAPI.FindInterestByID()).Methods("GET")
+	app.Router.HandleFunc("/interest/update/{id:[0-9]+}", interestAPI.UpdateInterest()).Methods("PUT")
+	app.Router.HandleFunc("/interest/delete/{id:[0-9]+}", interestAPI.DeleteInterest()).Methods("DELETE")
+
+	// User Interest API`s
+	userInterestAPI := InitializeUserInterestAPI(app.DB)
+	app.Router.HandleFunc("/users/interests", userInterestAPI.GetAllUserInterest()).Methods("GET")
+	app.Router.HandleFunc("/user/interest/create", userInterestAPI.CreateUserInterest()).Methods("POST")
+	app.Router.HandleFunc("/user/interests/{id:[0-9]+}", userInterestAPI.FindByUserID()).Methods("GET")
+	app.Router.HandleFunc("/interest/{id:[0-9]+}", userInterestAPI.FindByInterestID()).Methods("GET")
+	app.Router.HandleFunc("/interest/update/{id:[0-9]+}", userInterestAPI.UpdateUserInterest()).Methods("PUT")
+	app.Router.HandleFunc("/interest/delete/{id:[0-9]+}", userInterestAPI.DeleteUserInterest()).Methods("DELETE")
 
 }
 
 // Initialize User API
 func InitializeUserAPI(db *gorm.DB) api.UserAPI {
 	userRepository := user.NewRepository(db)
-	userService := service.NewUserService(userRepository)
+	userService := userService.NewUserService(userRepository)
 	userAPI := api.NewUserAPI(userService)
 	return userAPI
+}
+
+// Initialize Interest API
+func InitializeInterestAPI(db *gorm.DB) api.InterestAPI {
+	interestRepository := interest.NewRepository(db)
+	interestService := interestService.NewInterestService(interestRepository)
+	interestAPI := api.NewInterestAPI(interestService)
+	return interestAPI
+}
+
+// Initialize User Interest API
+func InitializeUserInterestAPI(db *gorm.DB) api.UserInterestAPI {
+	userInterestRepository := userInterestRepository.NewRepository(db)
+	userInterestService := userInterestService.NewUserInterestService(userInterestRepository)
+	userInterestAPI := api.NewUserInterestAPI(userInterestService)
+	return userInterestAPI
 }
 
 func handler(rw http.ResponseWriter, r *http.Request) {

@@ -12,6 +12,16 @@ type User struct {
 
 // UserDTO
 type UserDTO struct {
+	ID        uint64 `gorm:"primary_key" json:"id"`
+	Username  string `json:"username"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Profile   string `json:"profile"`
+	//Interests []Interest `json:"interests"`
+}
+
+// UserWithInterestDTO
+type UserWithInterestDTO struct {
 	ID        uint64     `gorm:"primary_key" json:"id"`
 	Username  string     `json:"username"`
 	FirstName string     `json:"first_name"`
@@ -27,7 +37,6 @@ func ToUser(userDTO *UserDTO) *User {
 		FirstName: userDTO.FirstName,
 		LastName:  userDTO.LastName,
 		Profile:   userDTO.Profile,
-		Interests: userDTO.Interests,
 	}
 }
 
@@ -39,6 +48,5 @@ func ToUserDTO(user *User) *UserDTO {
 		FirstName: user.Username,
 		LastName:  user.LastName,
 		Profile:   user.Profile,
-		Interests: user.Interests,
 	}
 }
