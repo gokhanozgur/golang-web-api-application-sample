@@ -19,30 +19,30 @@ func NewRepository(db *gorm.DB) *Repository {
 
 // Get All
 func (u *Repository) All() ([]model.UserInterest, error) {
-	users := []model.UserInterest{}
-	err := u.db.Find(&users).Error
-	return users, err
+	userInterests := []model.UserInterest{}
+	err := u.db.Find(&userInterests).Error
+	return userInterests, err
 }
 
 // FindByID
 func (u *Repository) FindByID(id uint64) (*model.UserInterest, error) {
-	user := new(model.UserInterest)
-	err := u.db.Where(`id = ?`, id).First(&user).Error
-	return user, err
+	interest := new(model.UserInterest)
+	err := u.db.Where(`id = ?`, id).First(&interest).Error
+	return interest, err
 }
 
 // FindByUserID
 func (u *Repository) FindByUserID(userId uint64) (*model.UserInterest, error) {
-	user := new(model.UserInterest)
-	err := u.db.Where(`user_id = ?`, userId).First(&user).Error
-	return user, err
+	userInterests := new(model.UserInterest)
+	err := u.db.Where(`user_id = ?`, userId).First(&userInterests).Error
+	return userInterests, err
 }
 
 // FindByInterestID
 func (u *Repository) FindByInterestID(interestId uint) (*model.UserInterest, error) {
-	user := new(model.UserInterest)
-	err := u.db.Where(`interest_id = ?`, interestId).First(&user).Error
-	return user, err
+	userInterests := new(model.UserInterest)
+	err := u.db.Where(`interest_id = ?`, interestId).First(&userInterests).Error
+	return userInterests, err
 }
 
 // Save
