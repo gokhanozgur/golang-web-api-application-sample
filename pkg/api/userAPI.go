@@ -68,7 +68,6 @@ func (u UserAPI) CreateUser() http.HandlerFunc {
 		userDTO.Password = string(hashedPwd)
 
 		createUser, err := u.UserService.Save(model.ToUser(&userDTO))
-		//createdUser := model.ToUserWithoutPasswordDTO(&userDTO)
 		if err != nil {
 			RespondWithError(rw, http.StatusInternalServerError, err.Error())
 			return
