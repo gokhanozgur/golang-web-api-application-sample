@@ -39,7 +39,7 @@ func (u *Repository) Save(user *model.User) (*model.User, error) {
 
 // Delete
 func (u *Repository) Delete(id uint64) error {
-	err := u.db.Delete(&model.User{}).Error
+	err := u.db.Where(`id = ?`, id).Delete(&model.User{}).Error
 	return err
 }
 

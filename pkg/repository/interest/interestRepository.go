@@ -39,7 +39,7 @@ func (u *Repository) Save(interest *model.Interest) (*model.Interest, error) {
 
 // Delete
 func (u *Repository) Delete(id uint) error {
-	err := u.db.Delete(&model.Interest{}).Error
+	err := u.db.Where(`id = ?`, id).Delete(&model.Interest{}).Error
 	return err
 }
 
