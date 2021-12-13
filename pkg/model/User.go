@@ -6,7 +6,10 @@ type User struct {
 	Username  string     `json:"username"`
 	FirstName string     `json:"first_name"`
 	LastName  string     `json:"last_name"`
+	Email     string     `json:"email"`
+	Password  string     `json:"password"`
 	Profile   string     `json:"profile"`
+	Status    uint16     `json:"status"`
 	Interests []Interest `json:"interests"`
 }
 
@@ -16,8 +19,21 @@ type UserDTO struct {
 	Username  string `json:"username"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Password  string `json:"password"`
 	Profile   string `json:"profile"`
-	//Interests []Interest `json:"interests"`
+	Status    uint16 `json:"status"`
+}
+
+// UserWithoutPasswordDTO
+type UserWithoutPasswordDTO struct {
+	ID        uint64 `gorm:"primary_key" json:"id"`
+	Username  string `json:"username"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Profile   string `json:"profile"`
+	Status    uint16 `json:"status"`
 }
 
 // UserWithInterestDTO
@@ -27,6 +43,7 @@ type UserWithInterestDTO struct {
 	FirstName string     `json:"first_name"`
 	LastName  string     `json:"last_name"`
 	Profile   string     `json:"profile"`
+	Status    uint16     `json:"status"`
 	Interests []Interest `json:"interests"`
 }
 
@@ -36,7 +53,10 @@ func ToUser(userDTO *UserDTO) *User {
 		Username:  userDTO.Username,
 		FirstName: userDTO.FirstName,
 		LastName:  userDTO.LastName,
+		Email:     userDTO.Email,
+		Password:  userDTO.Password,
 		Profile:   userDTO.Profile,
+		Status:    userDTO.Status,
 	}
 }
 
@@ -45,8 +65,24 @@ func ToUserDTO(user *User) *UserDTO {
 	return &UserDTO{
 		ID:        user.ID,
 		Username:  user.Username,
-		FirstName: user.Username,
+		FirstName: user.FirstName,
 		LastName:  user.LastName,
+		Email:     user.Email,
+		Password:  user.Password,
 		Profile:   user.Profile,
+		Status:    user.Status,
+	}
+}
+
+// User to ToUserWithoutPasswordDTO
+func ToUserWithoutPasswordFromUser(user *User) *UserWithoutPasswordDTO {
+	return &UserWithoutPasswordDTO{
+		ID:        user.ID,
+		Username:  user.Username,
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
+		Email:     user.Email,
+		Profile:   user.Profile,
+		Status:    user.Status,
 	}
 }

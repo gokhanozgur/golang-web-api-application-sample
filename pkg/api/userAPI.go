@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserAPI struct {
@@ -62,13 +63,18 @@ func (u UserAPI) CreateUser() http.HandlerFunc {
 			return
 		}
 
+		pwd := []byte(userDTO.Password)
+		hashedPwd, _ := bcrypt.GenerateFromPassword(pwd, bcrypt.MinCost)
+		userDTO.Password = string(hashedPwd)
+
 		createUser, err := u.UserService.Save(model.ToUser(&userDTO))
+		//createdUser := model.ToUserWithoutPasswordDTO(&userDTO)
 		if err != nil {
 			RespondWithError(rw, http.StatusInternalServerError, err.Error())
 			return
 		}
 
-		RespondWithJSON(rw, http.StatusCreated, createUser)
+		RespondWithJSON(rw, http.StatusCreated, model.ToUserWithoutPasswordFromUser(createUser))
 	}
 }
 
@@ -82,7 +88,7 @@ func (u UserAPI) UpdateUser() http.HandlerFunc {
 			return
 		}
 
-		var userDTO model.UserDTO
+		var userDTO model.UserWithoutPasswordDTO
 		decoder := json.NewDecoder(r.Body)
 		defer r.Body.Close()
 		if err := decoder.Decode(&userDTO); err != nil {
@@ -99,15 +105,21 @@ func (u UserAPI) UpdateUser() http.HandlerFunc {
 		user.FirstName = userDTO.FirstName
 		user.LastName = userDTO.LastName
 		user.Username = userDTO.Username
+		user.Email = userDTO.Email
+		/*
+			pwd := []byte(userDTO.Password)
+			hashedPwd, _ := bcrypt.GenerateFromPassword(pwd, bcrypt.MinCost)
+			user.Password = string(hashedPwd)
+		*/
 		user.Profile = userDTO.Profile
-		//user.Interests = user.Interests
+		user.Status = userDTO.Status
 		updateduser, err := u.UserService.Save(user)
 		if err != nil {
 			RespondWithError(w, http.StatusInternalServerError, err.Error())
 			return
 		}
 
-		RespondWithJSON(w, http.StatusOK, model.ToUserDTO(updateduser))
+		RespondWithJSON(w, http.StatusOK, model.ToUserWithoutPasswordFromUser(updateduser))
 	}
 }
 
