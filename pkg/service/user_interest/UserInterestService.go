@@ -26,7 +26,7 @@ func (u *UserInterestService) FindByID(id uint64) (*model.UserInterest, error) {
 }
 
 // FindByUserID
-func (u *UserInterestService) FindByUserID(userId uint64) (*model.UserInterest, error) {
+func (u *UserInterestService) FindByUserID(userId uint64) ([]model.UserInterest, error) {
 	return u.UserInterestRespository.FindByUserID(userId)
 }
 

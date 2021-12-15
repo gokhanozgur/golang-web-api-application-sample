@@ -1,0 +1,435 @@
+{
+	"info": {
+		"_postman_id": "0ba7d11f-64fc-4405-978b-31aa01746ee6",
+		"name": "Golang",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "localhost:9001/users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/users",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/users/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" :\"testuser\",\n    \"first_name\":\"test\",\n    \"last_name\":\"user\",\n    \"email\":\"t@u.com\",\n    \"profile\": \"bla bla\",\n    \"status\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/user/create",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/users/update/1",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" :\"gokhanozgur2\",\n    \"first_name\":\"gökhan\",\n    \"last_name\":\"özgür\",\n    \"email\":\"g@g.com\",\n    \"profile\": \"bla bla\",\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/users/update/2",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"users",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/users/delete/2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" :\"gokhanozgur2\",\n    \"fist_name\":\"gökhan2\",\n    \"last_name\":\"özgür\",\n    \"email\":\"g2@g.com\",\n    \"password\": \"12345\",\n    \"profile\": \"bla bla\",\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/users/delete/2",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"users",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/user/interest/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"interest_id\": 7,\n    \"status\" : 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/user/interest/create",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"user",
+								"interest",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/user/interest/update/7",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"interest_id\": 8,\n    \"status\" : 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/user/interest/update/7",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"user",
+								"interest",
+								"update",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/user/interest/delete/7",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"interest_id\": 8,\n    \"status\" : 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/user/interest/delete/7",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"user",
+								"interest",
+								"delete",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/user/interests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"interest_id\": 8,\n    \"status\" : 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/user/interests",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"user",
+								"interests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/user/1/interests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"interest_id\": 8,\n    \"status\" : 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/user/1/interests",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"user",
+								"1",
+								"interests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/user/interest/6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"interest_id\": 8,\n    \"status\" : 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/user/interest/6",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"user",
+								"interest",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "interests",
+			"item": [
+				{
+					"name": "localhost:9001/interests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/interests",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"interests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/interest/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/interest/create",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"interest",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/interest/update/2",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"GO\",\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/interest/update/2",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"interest",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9001/interest/delete/7",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"GO\",\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9001/interest/delete/7",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"interest",
+								"delete",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

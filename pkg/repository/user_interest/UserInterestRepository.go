@@ -32,9 +32,9 @@ func (u *Repository) FindByID(id uint64) (*model.UserInterest, error) {
 }
 
 // FindByUserID
-func (u *Repository) FindByUserID(userId uint64) (*model.UserInterest, error) {
-	userInterests := new(model.UserInterest)
-	err := u.db.Where(`user_id = ?`, userId).First(&userInterests).Error
+func (u *Repository) FindByUserID(userId uint64) ([]model.UserInterest, error) {
+	userInterests := []model.UserInterest{}
+	err := u.db.Where(`user_id = ?`, userId).Find(&userInterests).Error
 	return userInterests, err
 }
 

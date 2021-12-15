@@ -97,6 +97,7 @@ func (i InterestAPI) UpdateInterest() http.HandlerFunc {
 		}
 
 		interest.Name = interestDTO.Name
+		interest.Status = interestDTO.Status
 		updatedInterest, err := i.InterestService.Save(interest)
 		if err != nil {
 			RespondWithError(w, http.StatusInternalServerError, err.Error())

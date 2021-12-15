@@ -90,10 +90,10 @@ func (app *App) routes() {
 	// User API`s
 	userAPI := InitializeUserAPI(app.DB)
 	app.Router.HandleFunc("/users", userAPI.GetAllUser()).Methods("GET")
-	app.Router.HandleFunc("/users/create", userAPI.CreateUser()).Methods("POST")
-	app.Router.HandleFunc("/users/{id:[0-9]+}", userAPI.FindUserByID()).Methods("GET")
-	app.Router.HandleFunc("/users/update/{id:[0-9]+}", userAPI.UpdateUser()).Methods("PUT")
-	app.Router.HandleFunc("/users/delete/{id:[0-9]+}", userAPI.DeleteUser()).Methods("DELETE")
+	app.Router.HandleFunc("/user/create", userAPI.CreateUser()).Methods("POST")
+	app.Router.HandleFunc("/user/{id:[0-9]+}", userAPI.FindUserByID()).Methods("GET")
+	app.Router.HandleFunc("/user/update/{id:[0-9]+}", userAPI.UpdateUser()).Methods("PUT")
+	app.Router.HandleFunc("/user/delete/{id:[0-9]+}", userAPI.DeleteUser()).Methods("DELETE")
 
 	// Interest API`s
 	interestAPI := InitializeInterestAPI(app.DB)
@@ -105,12 +105,12 @@ func (app *App) routes() {
 
 	// User Interest API`s
 	userInterestAPI := InitializeUserInterestAPI(app.DB)
-	app.Router.HandleFunc("/users/interests", userInterestAPI.GetAllUserInterest()).Methods("GET")
+	app.Router.HandleFunc("/user/interests", userInterestAPI.GetAllUserInterest()).Methods("GET")
 	app.Router.HandleFunc("/user/interest/create", userInterestAPI.CreateUserInterest()).Methods("POST")
-	app.Router.HandleFunc("/user/interests/{id:[0-9]+}", userInterestAPI.FindByUserID()).Methods("GET")
-	app.Router.HandleFunc("/interest/{id:[0-9]+}", userInterestAPI.FindByInterestID()).Methods("GET")
-	app.Router.HandleFunc("/interest/update/{id:[0-9]+}", userInterestAPI.UpdateUserInterest()).Methods("PUT")
-	app.Router.HandleFunc("/interest/delete/{id:[0-9]+}", userInterestAPI.DeleteUserInterest()).Methods("DELETE")
+	app.Router.HandleFunc("/user/{id:[0-9]+}/interests", userInterestAPI.FindByUserID()).Methods("GET")
+	app.Router.HandleFunc("/user/interest/{id:[0-9]+}", userInterestAPI.FindByInterestID()).Methods("GET")
+	app.Router.HandleFunc("/user/interest/update/{id:[0-9]+}", userInterestAPI.UpdateUserInterest()).Methods("PUT")
+	app.Router.HandleFunc("/user/interest/delete/{id:[0-9]+}", userInterestAPI.DeleteUserInterest()).Methods("DELETE")
 
 }
 
